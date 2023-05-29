@@ -1,0 +1,76 @@
+class RoadLineDetector
+
+Mat filter_color(Mat img_frame); 
+// 흰색, 노란색 색상의 범위를 정해 해당되는 차선을 필터링
+
+
+inRange(output, lower_white, upper_white, white_mask);
+bitwise_and(output, output, white_image, white_mask);
+cvtColor(output, img_hsv, COLOR_BGR2HSV);
+//흰색 필터링
+
+inRange(img_hsv, lower_yellow, u
+
+llow_mask);
+bitwise_and(output, output, yellow_image, yellow_mask);
+//노란색 필터링
+
+Mat limit_region(Mat img_edge); 
+// 관심영역의 가장자리만 감지되도록 마스킹
+// 관심영역의 가장자리만 표시되는 이진 영상 반환
+
+
+vector<Vec4i> houghLines(Mat img_mask);
+// 관심영역으로 마스킹된 이미지에서 모든 선 추출하여 반환
+
+vector<vector<Vec4i> > separateLine(Mat img_edge, vector<Vec4i> lines);
+// 검출된 모든 허프변환 직선들을 기울기 별로 정렬
+// 선을 기울기와 대략적인 위치에 따라 좌우로 분류
+
+vector<Point> regression(vector<vector<Vec4i> > separated_lines, Mat img_input);
+// 선형 회귀를 통해 좌우 차선 각각의 가장 적합한 선 찾기
+
+
+string predictDir();
+// 두 차선이 교차하는 지점(사라지는 점)이 중심점으로 부터
+// 왼쪽에 있는지 오른쪽에 있는지로 진행방향 예측
+
+
+Mat drawLine(Mat img_input, vector<Point> lane, string dir);
+// 좌우 차선을 경계로 하는 내부 다각형을 투명하게 색을 채운다.
+// 예측 진행 방향 텍스트를 영상에 출력한다.
+// 좌우 차선을 영상에 선으로 그린다.
+
+Mat img_frame
+// 원본 영상
+
+Mat img_filter
+// 흰색, 노란색 범위 내에 있는 것만 필터링 하여 차선 후보 저장
+
+Mat img_edge
+// Canny Edge Detection으로 에지를 추출. (잡음 제거를 위한 가우시안 필터링도 포함)
+
+Mat img_mask
+// 자동차의 진행방향 바닥에 존재하는 차선만 검출하기 위한 관심영역 지정
+
+Mat img_lines
+Mat img_result
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
